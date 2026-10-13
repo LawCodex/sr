@@ -114,7 +114,7 @@ def main():
             ok = False
             if r.status_code == 200 and r.content[:5] == b"%PDF-":
                 cl = r.headers.get("content-length")
-                if not cl or int(cl) == len(r.content):
+                if not cl or r.headers.get("content-encoding") or int(cl) == len(r.content):
                     open(p, "wb").write(r.content)
                     ok = pdf_ok(p)
             if not ok:
