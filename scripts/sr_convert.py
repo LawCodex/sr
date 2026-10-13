@@ -116,6 +116,8 @@ def main():
             continue
         bodies = []
         for u in it["pdfs"]:
+            if re.search(r"preadvies|eindverslag|aanb|amendement|intrekking", u, re.I):
+                continue  # parliamentary reports, not the law text
             p = os.path.join(RAW, "pdf", fname(u))
             if not os.path.exists(p):
                 gaps.append({"title": title, "url": u, "reason": "download failed"})
